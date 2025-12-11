@@ -1,194 +1,279 @@
-# HUmanoi_auto
-🚀 HAN AUTO BOT
-Auto Task – Web3 – Proxy Auth – Multi-thread – Random VN Username
+```md
+# 🚀 HAN AUTO BOT – FULL HƯỚNG DẪN SỬ DỤNG TOOL (READY FOR GITHUB)
 
-Tool này giúp tự động hóa toàn bộ quy trình làm nhiệm vụ (tasks) trên Humanoid Network (HAN):
+Dưới đây là **README.md hoàn chỉnh**, chỉ cần **copy nguyên khối** và dán lên GitHub → sẽ hiển thị block chuẩn, không lỗi format.
 
-Tự login ví bằng private key
+> Tool dựa trên các file bạn cung cấp:  
+> - package.json :contentReference[oaicite:0]{index=0}  
+> - package-lock.json :contentReference[oaicite:1]{index=1}  
+> - Up.js (code chính) :contentReference[oaicite:2]{index=2}  
 
-Tự random User-Agent
+---
 
-Hỗ trợ proxy có user/pass
+# 📌 1. GIỚI THIỆU
+Đây là tool **HAN AUTO BOT**, dùng để:
+- Auto login bằng private key
+- Retry proxy cho đến khi login thành công
+- Random User-Agent
+- Random username X kiểu Việt Nam
+- Auto làm tất cả nhiệm vụ `/tasks`
+- Delay hợp lý để tránh flag
+- Chạy tuần tự qua từng ví
 
-Tự đổi username X (Twitter) bằng tên tiếng Việt ngẫu nhiên
+Tool viết bằng **Node.js + Axios + Ethers + Proxy Agent**.
 
-Chạy full task: Follow – Join – Tweet – Share
+---
 
-Tự retry proxy lỗi
+# 📦 2. CẦN CÀI ĐẶT
 
-Multithread xử lý nhiều ví liên tục
+### ✔ Node.js 16+
+Tải tại: https://nodejs.org
 
-📦 1. Yêu cầu môi trường
+Kiểm tra:
 
-Node.js v16+
+```bash
+node -v
+npm -v
+```
 
-File dữ liệu:
+---
 
-privatekey.txt
+# 📁 3. CÀI ĐẶT TOOL
 
-proxy.txt (nếu dùng proxy)
+Clone code hoặc đặt vào thư mục bất kỳ:
 
-user_agents.txt
-
-📁 2. Cài đặt
-git clone https://github.com/YOUR_NAME/han-auto.git
-cd han-auto
+```bash
 npm install
+```
 
+Lệnh này sẽ tự cài dependency theo file:
 
-Dependencies được khai báo trong package.json: axios, chalk, dotenv, ethers, https-proxy-agent… 
+- axios
+- chalk
+- dotenv
+- ethers
+- https-proxy-agent
 
-package
+(Theo đúng package.json của bạn.)
 
-📄 3. Chuẩn bị file dữ liệu
-✔ privatekey.txt
+---
 
-1 private key mỗi dòng, không có dấu ngoặc kép.
+# 📝 4. CHUẨN BỊ DATA FILES
 
-0xabc123...
-0xdeadbeef...
+Trong thư mục chứa `Up.js`, tạo 3 file:
 
-✔ proxy.txt (tùy chọn)
+---
 
-Hỗ trợ full format:
+## 4.1. privatekey.txt
 
-http://user:pass@host:port
+```txt
+0xPRIVATE_KEY_1
+0xPRIVATE_KEY_2
+0xPRIVATE_KEY_3
+```
 
-✔ user_agents.txt
+Lưu ý:
+- Mỗi dòng = 1 ví
+- Không được để khoảng trắng dư
+- Không dấu ngoặc kép
 
-Mỗi UA 1 dòng:
+---
 
-Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36...
-Mozilla/5.0 (Linux; Android 10; SM-J415FN) AppleWebKit/537.36...
+## 4.2. proxy.txt (tuỳ chọn)
 
-⚙ 4. Cách chạy tool
-node Up.js
+```txt
+http://user:pass@ip:port
+http://ip:port
+```
 
+Nếu không dùng proxy:
+- Khi tool hỏi **Use Proxy? (y/n)** → nhập `n`.
 
-Tool sẽ hỏi:
+---
 
-Use Proxy? (y/n):
-Number of multithreaded:
-Referral Link:
+## 4.3. user_agents.txt
 
-🔥 5. Tính năng chính
-⭐ Login ví bằng Private Key
+```txt
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120 Safari/537
+Mozilla/5.0 (Linux; Android 14) Chrome/120 Mobile Safari/537
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Safari/605
+```
 
-Lấy nonce
+Tool sẽ random mỗi lần login.
 
-Ký message bằng Ethers.js
+---
 
-Gửi signature lên server xác thực
+# 📂 5. CẤU TRÚC THƯ MỤC
 
-Tự retry khi proxy chết
-→ Tất cả logic nằm trong loginWallet() và loginWithRetry() 
-
-Up
-
-⭐ User-Agent Random
-
-Mỗi ví lấy ngẫu nhiên UA từ user_agents.txt.
-
-⭐ Proxy Auth Support
-
-Dùng HttpsProxyAgent để truyền:
-
-user
-
-pass
-
-host
-
-port
-
-Tool tự đổi proxy khi lỗi.
-
-⭐ Random Username Tiếng Việt
-
-Sinh họ + tên random:
-
-NguyenAnh23
-PhamBao77
-LeMinh12
-
-
-Được implement tại hàm randomVietnamUsername() 
-
-Up
-
-⭐ Chạy Full Tasks
-
-Tool tự đọc danh sách nhiệm vụ:
-
-SOCIAL_FOLLOW
-
-TELEGRAM_JOIN
-
-DISCORD_JOIN
-
-SOCIAL_SHARE
-
-SOCIAL_TWEET (tự tạo tweetId random)
-
-→ Xử lý tại runTask() 
-
-Up
-
-⭐ Chạy lần lượt tất cả ví
-
-Mỗi ví:
-
-Login
-
-Random UA
-
-Random Proxy
-
-Update username
-
-Làm full task
-
-Chờ delay random
-
-Chuyển ví tiếp theo
-
-→ Thực thi tại runWallet() và MAIN() 
-
-Up
-
-📊 6. Output Console
-
-Ví dụ:
-
-▶ WALLET 1/50
-User-Agent: Mozilla/5.0 (Windows NT 10.0...
-→ Login OK (0x12ab...89ff)
-Using Proxy: http://user:pass@ip:port
-
-→ Update X Username
-✓ Username updated: NguyenAnh55
-
-→ Tasks Found: 14
-▶ Task: Follow Twitter             ✓ Completed (50 pts)
-...
-▶ Total Score: 320 Points
-
-▶ Đợi 11 giây để chuyển ví tiếp...
-
-📜 7. License
-
-MIT — bạn có thể chỉnh sửa, thương mại hoặc chia sẻ lại tự do.
-
-🤝 8. Credits
-
-Maintainer: YourName
-
-⬇ 9. Cấu trúc thư mục gợi ý
-han-auto/
+```txt
+HAN-AUTO/
  ├── Up.js
  ├── package.json
  ├── package-lock.json
  ├── privatekey.txt
  ├── proxy.txt
- ├── user_agents.txt
- └── README.md  ← dán file này
+ └── user_agents.txt
+```
+
+---
+
+# ▶️ 6. CHẠY TOOL
+
+Chạy lệnh:
+
+```bash
+node Up.js
+```
+
+Tool sẽ hỏi:
+
+```
+Use Proxy? (y/n):
+Number of multithreaded:
+Referral Link:
+```
+
+Giải thích:
+
+- **Use Proxy?**  
+  - `y` → dùng proxy trong proxy.txt  
+  - `n` → bỏ qua proxy
+
+- **Number of multithreaded:**  
+  (Hiện code chưa dùng đa luồng thật, có thể nhập 1)
+
+- **Referral Link:**  
+  Dán link ref bạn muốn gắn.
+
+---
+
+# 🔄 7. FLOW HOẠT ĐỘNG CỦA TOOL
+
+## ✔ LOGIN + RETRY PROXY  
+Hàm `loginWithRetry()` sẽ:
+- Pick random proxy
+- Login
+- Nếu die → log lỗi → thử proxy khác
+
+Hoạt động đến khi thành công.
+
+## ✔ RANDOM USERNAME X VIỆT NAM  
+Dùng họ + tên + số:
+- NguyenLinh33  
+- PhamHuy77  
+- LeMinh40  
+
+## ✔ LẤY & CHẠY TOÀN BỘ TASK  
+Tool tự động:
+
+```
+SOCIAL_FOLLOW
+TELEGRAM_JOIN
+DISCORD_JOIN
+SOCIAL_SHARE
+SOCIAL_TWEET (auto tạo tweetId fake)
+```
+
+Hoàn thành task → log điểm → delay 3–7s → tiếp tục.
+
+## ✔ CHẠY TỪNG VÍ  
+Sau mỗi ví:
+- Log tổng điểm
+- Delay random 5–15s
+- Sang ví tiếp theo
+
+---
+
+# 🔐 8. LƯU Ý QUAN TRỌNG
+
+Không bao giờ đưa các file sau lên GitHub:
+
+```txt
+privatekey.txt
+proxy.txt
+user_agents.txt
+.env
+```
+
+Thêm vào `.gitignore`:
+
+```txt
+privatekey.txt
+proxy.txt
+user_agents.txt
+.env
+```
+
+---
+
+# 🎉 9. TÓM TẮT CHO NGƯỜI DÙNG
+
+1. Tạo file privatekey.txt  
+2. Tạo proxy.txt + user_agents.txt  
+3. Chạy `npm install`  
+4. Chạy `node Up.js`  
+5. Treo máy → tool tự làm hết
+
+---
+
+# ✔ 10. DONE – CHỈ VIỆC COPY NGUYÊN KHỐI NÀY LÊN GITHUB
+
+Toàn bộ nội dung đã được format lại chuẩn GitHub, nằm trong **một code block duy nhất** theo đúng rule bạn yêu cầu.
+
+```
+
+---
+
+# ❤️ Support the Developer (Donate)
+
+If you find this project useful and want to support further development, you can donate using any of the wallets below.  
+Your support means a lot — thank you! 🙏
+
+---
+
+## 💸 Crypto Wallets
+
+### 🔷 EVM (ETH / BNB / Arbitrum / Polygon / Base / Linea / zkSync / Optimism / Scroll)
+```
+0x4bAADCd4AB4Df11D121F1662e048Dd84261c40b2
+```
+
+### 🌕 Aptos
+```
+0x64e46626b1213e3c0e66e733a014f4d453e322e20a0630dd428ef8e6058ae0df
+```
+
+### 🟧 Bitcoin (BTC)
+```
+bc1qqhxa6yvaey0fyed8gngpx2p52uhtzxfj43yju0
+```
+
+### 🔵 TON
+```
+UQDGarW35S8X03zr6vn-iKEoh5as69D7Ar-xU91kORsF2lLn
+```
+
+### 🟣 Sui
+```
+0x26924fffb59be46bd3a527a48f66babfe8d0dcb4a7084c38a18e8b56764feb66
+```
+
+### 🔺 Tron (TRX / USDT-TRC20)
+```
+TPhcXjHrg22kvv7jKKMrhPhBr167FFV8vN
+```
+
+### 🟩 Solana (SOL)
+```
+FBf5yRzFzXhi447mKNKCRedV2jVbsmmF6iRdgi3MLmga
+```
+
+---
+
+## ⚡ Thank You!
+
+Every donation helps keep this project alive and encourages more updates, features, and improvements.  
+Thank you for your support! ❤️
+
+---
+
