@@ -1,15 +1,6 @@
 ```md
 # 🚀 HAN AUTO BOT – FULL HƯỚNG DẪN SỬ DỤNG TOOL (READY FOR GITHUB)
 
-Dưới đây là **README.md hoàn chỉnh**, chỉ cần **copy nguyên khối** và dán lên GitHub → sẽ hiển thị block chuẩn, không lỗi format.
-
-> Tool dựa trên các file bạn cung cấp:  
-> - package.json :contentReference[oaicite:0]{index=0}  
-> - package-lock.json :contentReference[oaicite:1]{index=1}  
-> - Up.js (code chính) :contentReference[oaicite:2]{index=2}  
-
----
-
 # 📌 1. GIỚI THIỆU
 Đây là tool **HAN AUTO BOT**, dùng để:
 - Auto login bằng private key
@@ -213,14 +204,6 @@ user_agents.txt
 3. Chạy `npm install`  
 4. Chạy `node Up.js`  
 5. Treo máy → tool tự làm hết
-
----
-
-# ✔ 10. DONE – CHỈ VIỆC COPY NGUYÊN KHỐI NÀY LÊN GITHUB
-
-Toàn bộ nội dung đã được format lại chuẩn GitHub, nằm trong **một code block duy nhất** theo đúng rule bạn yêu cầu.
-
-```
 
 ---
 
