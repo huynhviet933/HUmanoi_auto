@@ -1,0 +1,27 @@
+{
+  "name": "han-auto",
+  "version": "1.0.0",
+  "description": "HAN Network auto tool using private keys, proxy, user-agents, multithread, username VN, retry proxy",
+  "main": "han_auto.js",
+  "type": "module",
+  "scripts": {
+    "start": "node han_auto.js"
+  },
+  "keywords": [
+    "han",
+    "auto",
+    "airdrop",
+    "web3",
+    "ethers",
+    "proxy"
+  ],
+  "author": "YourName",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.6.7",
+    "chalk": "^5.3.0",
+    "dotenv": "^16.4.5",
+    "ethers": "^6.12.2",
+    "https-proxy-agent": "^7.0.6"
+  }
+}
